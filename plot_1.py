@@ -42,9 +42,6 @@ for i in range(32):
 
 
 
-
-    
-
 number_cpus = list(dict.fromkeys(number_cpus))    
 
 cpus = []
@@ -71,10 +68,10 @@ for i in number_cpus:
 
 sequential = np.mean(sequential_nums)
 
-print(sequential)
+
 
 number_cpus.sort()
-print(number_cpus)
+
 N = len(number_cpus)
 parallel = []
 for i in range (N):
@@ -84,7 +81,7 @@ for i in range (N):
 
 
 parallel.sort(reverse=True)
-print(parallel)
+
 
 speedup = []
 efficiency = []
@@ -93,9 +90,10 @@ for i in range(len(parallel)):
     efficiency.append(sequential / (number_cpus[i]*parallel[i]))
    
 
-print(speedup)
-print(efficiency)
 
+num_ef = []
+for i in number_cpus:
+    num_ef.append(1)
 
 plt.figure(1)
 plt.plot(number_cpus,speedup, linestyle='-', marker='o')
@@ -107,28 +105,9 @@ plt.xlabel('Processors')
 
 plt.figure(2)
 plt.plot(number_cpus,efficiency, linestyle='-', marker='o')
+plt.plot(number_cpus,num_ef, "r--")
 plt.title('Efficiency')
 plt.xlabel('Processors')
 
-plt.figure(3)
-plt.scatter(total_cpus,error_calc)
-z = np.polyfit(total_cpus,error_calc,1)
-p = np.poly1d(z)
-plt.plot(total_cpus,p(total_cpus), "r--")
-
-
-fig, ax = plt.subplots()
-speedup_boxplot = []
-for i in range (N):
-    for j in nums[i]:
-        dummy = []
-        dummy.append(sequential / j)
-
-    speedup_boxplot.append(dummy)
-
-speedup_boxplot.sort()
-print(speedup_boxplot)
-ax.boxplot(speedup_boxplot, showfliers=True)
-plt.plot(number_cpus, number_cpus, "r--")
 
 plt.show()

@@ -4,11 +4,11 @@ import pandas as pd
 import json, os
 
 
-path_to_json = 'data/other_data/'
+path_to_json = 'data/data_2/'
 json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('40.json')]
 
 sequential_sample = []
-with open(os.path.join(path_to_json, 'sequential.json')) as sequential_file:
+with open(os.path.join(path_to_json, 'sequential_2.json')) as sequential_file:
     json_data = json.load(sequential_file)
     sequential_sample.append(json_data['cll_experiment']['sample'])
 
@@ -109,26 +109,5 @@ plt.figure(2)
 plt.plot(number_cpus,efficiency, linestyle='-', marker='o')
 plt.title('Efficiency')
 plt.xlabel('Processors')
-
-plt.figure(3)
-plt.scatter(total_cpus,error_calc)
-z = np.polyfit(total_cpus,error_calc,1)
-p = np.poly1d(z)
-plt.plot(total_cpus,p(total_cpus), "r--")
-
-
-fig, ax = plt.subplots()
-speedup_boxplot = []
-for i in range (N):
-    for j in nums[i]:
-        dummy = []
-        dummy.append(sequential / j)
-
-    speedup_boxplot.append(dummy)
-
-speedup_boxplot.sort()
-print(speedup_boxplot)
-ax.boxplot(speedup_boxplot, showfliers=True)
-plt.plot(number_cpus, number_cpus, "r--")
 
 plt.show()

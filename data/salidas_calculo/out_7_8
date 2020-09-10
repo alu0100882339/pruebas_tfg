@@ -1,0 +1,757 @@
+SLURM_JOBID=4619
+SLURM_JOB_NODELIST=verode21
+SLURM_NNODES=1
+SLURMTMPDIR=
+working directory = /home/verode/alu0100882339/tfg/call_pdt2
+  papi () 5.6.0 ( ) loaded
+Currently Loaded Modulefiles:
+ 1) mpi/OpenMPI/3.0.0/gcc/6.3.0   3) libraries/papi/5.6.0  
+ 2) libraries/json-c/0.15        
+........... cpi CALL prueba ............
+
+[verode21:14403] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+[verode21:14410] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14411] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14408] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14412] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14414] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14413] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14409] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 2
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 4
+Working at process ID: 2
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 5
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 2
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 2
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 0
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 0
+Working at process ID: 6
+Working at process ID: 4
+Working at process ID: 2
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 3
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 1
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 5
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 2
+Working at process ID: 6
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 0
+Working at process ID: 2
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 1
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 6
+Working at process ID: 4
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 5
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 2
+Working at process ID: 6
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 3
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 1
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 4
+Working at process ID: 2
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 4
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 2
+Working at process ID: 1
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 3
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 3
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 1
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 0
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 4
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 3
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 1
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 1
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 4
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 0
+pi is approximately 3.1415926535896643, Error is 0.0000000000001288
+Working at process ID: 1
+Working at process ID: 4
+FILE: cpiprueba.c.dat
+[verode21:14432] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+PAPI:Default domain is: 1 (PAPI_DOM_USER)
+PAPI:Default granularity is: 1 (PAPI_DOM_USER)
+PAPI:There are 10 hardware counters supported by the current substrate
+[verode21:14437] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14439] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14441] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14443] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14440] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14442] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14444] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+[verode21:14438] mca_base_component_repository_open: unable to open mca_oob_ud: libibverbs.so.1: cannot open shared object file: No such file or directory (ignored)
+Working at process ID: 0
+Working at process ID: 6
+Working at process ID: 4
+Working at process ID: 2
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 4
+Working at process ID: 2
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 7
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 2
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 5
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 4
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 1
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 6
+Working at process ID: 1
+Working at process ID: 7
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 3
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 1
+Working at process ID: 7
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 1
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 7
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 1
+Working at process ID: 7
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 1
+Working at process ID: 7
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 1
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 7
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 1
+Working at process ID: 7
+Working at process ID: 5
+Working at process ID: 3
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 0
+Working at process ID: 3
+Working at process ID: 1
+Working at process ID: 7
+Working at process ID: 5
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 6
+Working at process ID: 0
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 1
+Working at process ID: 7
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+Working at process ID: 6
+Working at process ID: 2
+Working at process ID: 4
+Working at process ID: 0
+Working at process ID: 7
+Working at process ID: 5
+Working at process ID: 3
+Working at process ID: 1
+pi is approximately 3.1415926535896137, Error is 0.0000000000001794
+FILE: cpiprueba.c.dat.0
+
+All Done!

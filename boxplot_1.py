@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd 
 import json, os
 
-
 path_to_json = 'data/other_data/'
 json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('40.json')]
+
 
 sequential_sample = []
 with open(os.path.join(path_to_json, 'sequential.json')) as sequential_file:
@@ -33,17 +33,11 @@ for js in (json_files):
         for i in p:
             number_cpus.append(i[1])
 
-error_calc = [line.rstrip('\n') for line in open('data/salidas_calculo/error.txt')]
-error_calc = np.array(error_calc, dtype=np.float32)
 
 total_cpus = []
 for i in range(32):
     total_cpus.append(i+1)
 
-
-
-
-    
 
 number_cpus = list(dict.fromkeys(number_cpus))    
 
@@ -71,10 +65,9 @@ for i in number_cpus:
 
 sequential = np.mean(sequential_nums)
 
-print(sequential)
 
 number_cpus.sort()
-print(number_cpus)
+
 N = len(number_cpus)
 parallel = []
 for i in range (N):
@@ -84,38 +77,14 @@ for i in range (N):
 
 
 parallel.sort(reverse=True)
-print(parallel)
+
 
 speedup = []
-efficiency = []
+
 for i in range(len(parallel)):
     speedup.append(sequential / parallel[i])
-    efficiency.append(sequential / (number_cpus[i]*parallel[i]))
+    
    
-
-print(speedup)
-print(efficiency)
-
-
-plt.figure(1)
-plt.plot(number_cpus,speedup, linestyle='-', marker='o')
-plt.plot(number_cpus, number_cpus, "r--")
-
-
-plt.title('Speedup')
-plt.xlabel('Processors')
-
-plt.figure(2)
-plt.plot(number_cpus,efficiency, linestyle='-', marker='o')
-plt.title('Efficiency')
-plt.xlabel('Processors')
-
-plt.figure(3)
-plt.scatter(total_cpus,error_calc)
-z = np.polyfit(total_cpus,error_calc,1)
-p = np.poly1d(z)
-plt.plot(total_cpus,p(total_cpus), "r--")
-
 
 fig, ax = plt.subplots()
 speedup_boxplot = []
@@ -127,7 +96,6 @@ for i in range (N):
     speedup_boxplot.append(dummy)
 
 speedup_boxplot.sort()
-print(speedup_boxplot)
 ax.boxplot(speedup_boxplot, showfliers=True)
 plt.plot(number_cpus, number_cpus, "r--")
 
