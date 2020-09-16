@@ -1,0 +1,89 @@
+\subsubsection{Description and scope of use}
+
+	This driver is needed for MPI programs using \CALL.
+	
+	It provides an implementation that should work with any MPI 1.2 
+conformant distribution. This driver uses MPI barrier synchronizations
+within the global communicator.
+
+\subsubsection{Location}
+
+	The C header file for this driver must be within the \CALL include
+directory tree in the following file: \verb$comm/cll_MPI.h$.
+
+	You should \emph{never} include this file directly. Do always let
+\CALL do it. 
+%If you include this file manually, then you will have
+%to change your code if you want to obtain a release version without
+%the \CALL instrumentation.
+
+\subsubsection{Syntax and parameters}
+
+	The syntax to tell \CALL that you want to use this driver is:
+
+	\verb$#pragma cll parallel MPI$
+
+	This driver does not use any parameters. 
+
+	\CALL will use the \emph{MPI\_COMM\_WORLD} communicator to pass the results 
+obtained by each processor to the I/O master processor. This mean
+that when the \CALL \verb$report$ pragma is executed, the whole set 
+of processors must participate in the communication (this implementation
+uses MPI barriers with the \emph{MPI\_COMM\_WORLD} communicator).
+	
+	If you cannot ensure that the whole set of processors will execute the 
+\CALL \verb$report$ pragma, then you cannot use this driver.
+
+\subsubsection{Synchronizing}
+
+	The MPI driver does not receive any parameters at all. And if you use
+the \verb$sync$ modifier without parameters, \CALL will barrier-synchronize 
+all the processors within the \emph{MPI\_COMM\_WORLD} communicator.
+
+	If you provide the \verb$sync$ modifier with a parameter it will be 
+assumed to be \emph{an MPI communicator visible within the scope in which the
+experiment is being declared}, and \CALL will barrier synchronize all
+the processors in that communicator.
+
+\subsubsection{Known Bugs}
+
+	No known bugs.
+
+\subsubsection{Examples}
+
+	This is a very short, unuseful example to show how to use this driver:
+
+\begin{verbatim}
+#include <mpi.h>
+
+#pragma cll parallel MPI
+
+int main(int argc, char *argv[]) {
+  int myid, numprocs;
+  int i;
+
+  MPI_Init(&argc,&argv);
+
+  MPI_Comm_size(MPI_COMM_WORLD,&numprocs);
+  MPI_Comm_rank(MPI_COMM_WORLD,&myid);
+
+#pragma cll sync mpiFirstEx
+
+  for (i = 0; i < 10000; i++)
+    ;
+
+#pragma cll end mpiFirstEx
+
+#pragma cll report mpiFirstEx
+
+  MPI_Finalize();
+  return 0;
+}
+\end{verbatim}
+
+	Note that to use \CALL with an MPI program you have to use the \CALL
+\verb$parallel$ pragma. In this example we synchronize all the processors
+with the \verb$sync$ experiment modifier to make sure that they all
+start the loop at the same time. We could have written:
+\verb$sync(MPI_COMM_WORLD)$ and it would have been exactly equivalent.
+

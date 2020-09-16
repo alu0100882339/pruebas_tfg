@@ -1,0 +1,152 @@
+/* cll_exp.h
+ *
+ * OUTPUT FORMAT: XML (cll_data.dtd)
+ *
+ */
+
+
+#ifndef __CLL_EXPERIMENT_HH__
+#define __CLL_EXPERIMENT_HH__
+
+#define cll_open_file() { \
+  if (!cll_fdata) {  \
+    if (!(cll_output_name)) { \
+      cll_fdata = stdout; \
+    } \
+    else { \
+      (cll_output_name) = cll_foutname((cll_output_name)); \
+      if (!(cll_fdata = fopen((cll_output_name) , "w"))) { \
+        fprintf(stderr, "error: cannot open output file\n"); \
+        exit(1); \
+      } \
+      fprintf(cll_fdata,"<?xml version=\"1.0\"?>\n\n"); \
+      fprintf(cll_fdata,"<!DOCTYPE cll_data SYSTEM \"cll_data.dtd\">\n\n"); \
+    } \
+  } \
+}
+
+#define cll_print_header(experiment,driver) {  \
+  if (!cll_first_report) { \
+    struct utsname machine; \
+    \
+    uname(&machine);  \
+    fprintf(cll_fdata, "<cll_data"); \
+    fprintf(cll_fdata, "\n\tCALL_VERSION=\"%s\"", cll_version); \
+    fprintf(cll_fdata, "\n\tPROGRAM=\"%s\"",      cll_programname); \
+    fprintf(cll_fdata, "\n\tSYSNAME=\"%s\"",      machine.sysname); \
+    fprintf(cll_fdata, "\n\tRELEASE=\"%s\"",      machine.release); \
+    fprintf(cll_fdata, "\n\tVERSION=\"%s\"",      machine.version); \
+    fprintf(cll_fdata, "\n\tPARALLEL_ID=\"%s\"",  (driver)); \
+    if(driver != "MPI") { \
+      fprintf(cll_fdata, "\n\tNODE_NAME=\"%s\"",    machine.nodename); \
+      fprintf(cll_fdata, " >\n"); \
+    } \
+    cll_first_report++; \
+  } \
+}
+
+#define cll_print_header_mpi_nodes(nodenames) {  \
+  fprintf(cll_fdata, "\n\tNODE_NAME=\"%s\"",    nodenames); \
+}
+
+  
+#define cll_print_exp_header(experiment) { \
+    unsigned *tmp;\
+    int i;\
+    fprintf(cll_fdata, "\n  <cll_experiment"); \
+    fprintf(cll_fdata, "\n\t  EXPERIMENT=\"%s\"", (experiment).name);        \
+    fprintf(cll_fdata, "\n\t  BEGIN_LINE=\"");                                    \
+    for(tmp = (experiment).begin_lines;               \
+				*tmp; tmp++)                                         \
+        fprintf(cll_fdata, " %i%c", *tmp, *(tmp+1)? ',': '\"');   \
+    fprintf(cll_fdata, "\n\t  END_LINE=\"");                                      \
+    for(tmp = (experiment).end_lines;               \
+				*tmp; tmp++)                                         \
+        fprintf(cll_fdata, " %i%c", *tmp, *(tmp+1)? ',': '\"');   \
+    fprintf(cll_fdata, "\n\t  FORMULA=\"%s\"",   (experiment).formula); \
+    fprintf(cll_fdata, "\n\t  INFORMULA=\"%s\"", (experiment).informula); \
+    fprintf(cll_fdata, "\n\t  MAXTESTS=\"%d\"",  (experiment).maxtests); \
+    fprintf(cll_fdata, "\n\t  DIMENSION=\"%d\"", (experiment).dimension); \
+    fprintf(cll_fdata, "\n\t  NUMIDENTS=\"%d\"", (experiment).numidents); \
+    fprintf(cll_fdata, "\n\t  IDENTS=\""); \
+	  for (i = (experiment).numidents - 1; i >= 0; i--) \
+        fprintf(cll_fdata, "%s ", (experiment).idents[i]); \
+    fprintf(cll_fdata, "\""); \
+    fprintf(cll_fdata, "\n\t  OBSERVABLES=\"");                                  \
+	  for (i = (experiment).numobservables - 1; i >= 0; i--) \
+        fprintf(cll_fdata, "%s ", (experiment).observables[i]);           \
+    fprintf(cll_fdata, "\"");                                             \
+    fprintf(cll_fdata, "\n\t  COMPONENTS=\"");                                   \
+    for(i = 0; i < (experiment).dimension; i++)                       \
+        fprintf(cll_fdata, "%s ", (experiment).components[i]);            \
+    fprintf(cll_fdata, "\"");                                             \
+}   
+
+#define cll_print_NUMTESTS(cll_nt,len) {  \
+	int cll_i;                                \
+	fprintf(cll_fdata, "\n\t  NUMTESTS=\"");             \
+  for (cll_i = 0; cll_i < (len); cll_i++)   \
+      fprintf(cll_fdata, "%u ", (cll_nt)[cll_i]);   \
+		fprintf(cll_fdata, "\"");                     \
+  fprintf(cll_fdata, " >\n\n"); \
+}
+
+#define cll_print_field_title(form,str) { \
+  fprintf(cll_fdata, "      <h>"); \
+	fprintf(cll_fdata, form, str); \
+  fprintf(cll_fdata, "</h>\n"); \
+}
+
+#define cll_print_field_value(form,str) { \
+  fprintf(cll_fdata, "        <c>"); \
+	fprintf(cll_fdata, form, str); \
+  fprintf(cll_fdata, "</c>\n"); \
+}
+
+#define cll_print_exp_fixed_fields_titles() { \
+	fprintf(cll_fdata, "      <h>%s</h>\n", "CPU"); \
+	fprintf(cll_fdata, "      <h>%s</h>\n", "NCPUS"); \
+}
+
+#define cll_print_exp_fixed_fields(processor,ncpus) { \
+  fprintf(cll_fdata, "        <c>%d</c>\n", (processor)); \
+  fprintf(cll_fdata, "        <c>%d</c>\n", (ncpus)); \
+}
+
+#define cll_print_exp_fields_titles(experiment) { \
+	int cll_i; \
+  fprintf (cll_fdata, "    <headers>\n"); \
+	cll_print_exp_fixed_fields_titles(); \
+	for (cll_i = (experiment).numidents - 1; cll_i >= 0; cll_i--) { \
+		fprintf (cll_fdata, "      <h>%s</h>\n", (experiment).idents[cll_i]); \
+	} \
+	CLL_USERDEF_TITLES(); \
+	fprintf (cll_fdata, "    </headers>\n\n"); \
+	fprintf (cll_fdata, "    <sample>\n"); \
+}
+
+#define cll_print_experiment_samples(numidents,instances,numberoftests,processor,ncpus) { \
+  int cll_i, cll_k; \
+  for (cll_i = 0; cll_i < (numberoftests); cll_i++) { \
+    fprintf (cll_fdata, "      <row>\n"); \
+    cll_print_exp_fixed_fields(processor, ncpus); \
+    for(cll_k = 0; cll_k < numidents; cll_k++) \
+      fprintf(cll_fdata, "        <c>%8.1f</c>\n", instances[cll_i].id[cll_k]); \
+    CLL_USERDEF_VALUES(instances[cll_i]); \
+    fprintf (cll_fdata, "      </row> \n"); \
+  } \
+}
+
+/*
+#define cll_print_end_of_experiment(experiment) fprintf(cll_fdata," </cll_experiment>\n")
+*/
+#define cll_print_end_of_experiment(experiment) { \
+  fpos_t cll_fdata_end; \
+  fprintf (cll_fdata, "    </sample>\n\n"); \
+  fprintf(cll_fdata,"  </cll_experiment>\n"); \
+  fgetpos(cll_fdata, &cll_fdata_end); \
+  fprintf(cll_fdata,"</cll_data>\n"); \
+  fsetpos(cll_fdata, &cll_fdata_end); \
+}
+
+#endif /* __CLL_EXPERIMENT_HH__ */

@@ -1,0 +1,140 @@
+\subsection{Description, scope of use and requirements}
+This driver is the default driver. It provide only one observable,
+named CLOCK, that corresponds to the wall time in seconds.
+The driver does this through the use of specific sub-drivers 
+for each architecture. Thus, for \emph{SunFire} systems, the time is 
+measured using the function {\tt gethrtime()}.
+When no specific sub-driver is provided,
+the default implementation makes use of functions that are
+expected to be available in any system.  In such case,
+the driver uses the function \verb$gettimeofday()$ which is currently
+within the Open Group Bases Specification (\verb$sys/time.h$). This
+function should supposedly be in any UNIX system. And this holds for
+the systems that we have tested (See Table \ref{table:unistdtestedsystems}).
+This function was selected because it is widespread.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|c|r|}
+\hline
+ MACHINE & OS\\
+\hline
+ Sunfire   & Solaris\\
+\hline
+ CRAYC   &UNICOS\\
+\hline
+ PC compatible   &LINUX\\
+\hline
+ Origin 2000   &Irix\\
+\hline
+ Origin 3000   &Irix\\
+\hline
+ Digital Alpha MP & Digital Unix\\
+\hline
+\end{tabular}
+\end{center}
+\caption{UNISTD: Tested Platforms}
+\label{table:unistdtestedsystems}
+\end{table}
+
+This driver is always included in any \CALL instrumented code. 
+If available, it can make use of a subdriver adapted
+to your specific platform. The idea being that for such 
+plataform we can provide methods that would be more
+accurate and lighter than \verb|gettimeofday()|.
+To work with a subdriver, an environment variable {\tt PLATFORM}), 
+has to be defined. The code implementing the subdriver 
+has to be in a file called:
+
+\begin{center}
+\verb$cll.$\emph{DRIVER}\verb$.$\emph{PLATFORM}\verb$.h$
+\end{center}
+
+in the \verb|$CLLROOT/include/measures/| directory.
+If such file does not exist or the environment variable \verb|PLATFORM|
+is not defined, the UNISTD  driver uses the function \verb$gettimeofday()$.
+
+
+	You can explicitly tell \CALL to use it with the \CALL pragma \verb$uses$. 
+In any case, this driver is always added.
+%It will no add any overhead within your experiments if it is not used.
+
+\subsection{Location}
+
+  The C header file for this driver must be within the \CALL include
+directory tree in the following file: \verb$measures/cll.UNISTD.h$.
+
+  You should \emph{never} include this file directly. Do always let
+\CALL do it for you. If you include this file manually, then you will have
+to change your code if you want to obtain a release version without
+the \CALL instrumentation.
+
+\subsection{Observables provided}
+
+	This driver provides only one observable:
+
+	\begin{description}	
+	\item[CLOCK:] 
+       Measures the time in seconds for the execution instances of the
+       defined \CALL experiment.  When no specific subdriver is provided,
+       the evaluation is implemented through the \verb$gettimeofday()$ function.
+	     The function \verb$gettimeofday()$ introduces some overhead. It
+       is used because it is widely extended.
+
+	     This \emph{observable} is the default. So if you do not explicit
+	     an \verb$observable$ in the experiment declaration,
+	     this one will be assumed. If you add an \emph{observable} list
+	     at the left of the complexity formula, then 
+             \CALL will generate code to measure
+             every observable in that list. Any observable 
+             in the list has to be supported
+             by one and only one of the drivers specified in a {\tt uses } pragma.
+	\end{description}
+
+\subsection{Known Bugs}
+
+  No known bugs.  
+	However, \verb$gettimeofday()$ introduces some overhead. Consider
+	using an equivalent means from a different \CALL Observables Driver.
+  As a last resource, you can produce an specific UNISTD subdriver 
+  for your specific platform (see section \ref{section:buildingadriver}), if so, do not forget to
+  send us an email with the subdriver code!.
+
+\subsection{Examples}
+
+	Let's measure the time that a small loop consumes using the \verb$CLOCK$
+observable:
+
+\begin{verbatim}
+int main(void) {
+  int n = 10000;
+  int i;
+#pragma cll loopexp loopexp[0] + loopexp[1]*n
+  for (i = 0; i < n; i++)
+      ;
+#pragma cll end loopexp	
+
+#pragma cll report loopexp
+  return 0;
+}
+\end{verbatim}
+
+The previous code is equivalent to the following one:
+
+\begin{verbatim}
+#pragma cll uses UNISTD
+
+int main(void) {
+  int n = 10000;
+  int i;
+#pragma cll loopexp CLOCK = loopexp[0] + loopexp[1]*n 
+  for (i = 0; i < n; i++)
+      ;
+#pragma cll end loopexp	
+
+#pragma cll report loopexp
+  return 0;
+}
+\end{verbatim}
+
+

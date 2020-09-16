@@ -1,0 +1,5 @@
+PUSERTIME # Procesor execution time
+NUSERTIME # Procesor execution time
+NSYSTEMTIME # System Routines execution time
+NCHILDUSERTIME # Procesor time for child's procs
+NCHILDSYSTEMTIME # System Routines execution time for child's procs

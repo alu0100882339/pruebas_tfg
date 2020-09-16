@@ -1,0 +1,191 @@
+\subsection{Description, scope of use and requirements}
+This driver allows \CALL to use the PAPI interface to take measurements.
+This driver has been designed to be easily updated to follow PAPI
+improvements (see section \ref{subsection:configuring} for details).
+
+Most of nowadays processors have hardware counters  to provide
+information about the events that have an important impact on
+the performance.
+The Performance API (PAPI) is a portable library that provides functions  to gain access to
+the hardware counters.
+	PAPI is a library designed by the well-known Tennesee Group
+directed by Jack Dongarra (\verb|http://icl.cs.utk.edu/projects/papi/people/|). 
+The development is leaded by P. Mucci.
+
+     PAPI provides two interfaces to the underlying counter hardware: 
+\begin{enumerate}
+\item
+A simple, high level interface for the acquisition of simple
+measurements and
+\item
+A fully programmable, low level interface directed towards
+users with more sophisticated needs.
+\end{enumerate}
+
+ The high level interface simply provides the ability to start,
+ stop and read the counters for a specified list of events.
+The low level interface deals with hardware events in groups
+called \verb|EventSets|.
+
+\verb|EventSets| can reflect how the counters are most
+frequently used, such as taking simultaneous measurements of
+different hardware events and relating them to one another.
+For example, relating cycles to memory references or flops
+to level 1 cache misses can help detect poor locality and
+memory management.  
+
+The topmost layer of PAPI consists of the the high and low level
+PAPI interfaces.
+This layer is completely machine independent.
+It contains all of the API functions.
+All data structure allocation, management and state handling
+is done by this layer exclusively.
+In addition, this layer contains code to provide some more
+advanced functionality not always provided by the operating
+system, namely event multiplexing and overflow handling.
+This portable code calls the \verb|substrate|, the internal PAPI
+layer that handles the machine dependent portions of accessing
+the counters.
+
+	\CALL allows you to use all the events provided by PAPI without the need
+to know how PAPI works. You will only need to know the identifier for
+the particular event that you are interested in (and, obviously, its meaning). 
+This identifier has to be exactly the same that PAPI declares.
+
+\emph{You must have PAPI installed and working in your system. You will
+have to link the PAPI library with your program if you use the \CALL
+PAPI Observables Driver}.
+	
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|c|r|}
+\hline
+ MACHINE & OS\\
+\hline
+ Sunfire   & Solaris\\
+\hline
+ CRAYC   &UNICOS\\
+\hline
+ PC compatible   &LINUX\\
+\hline
+ Origin 2000   &Irix\\
+\hline
+\end{tabular}
+\end{center}
+\caption{PAPI: tested Platforms}
+\label{table:papitestedsystems}
+\end{table}
+
+\subsection{Location}
+
+  The C header file for this driver must be within the \CALL include
+directory tree in the following file: \verb$measures/cll.PAPI.h$.
+
+  You should \emph{never} include this file directly. Do always let
+\CALL do it. 
+%If you include this file manually, then you will have
+%to change your code if you want to obtain a release version without
+%the \CALL instrumentation.
+
+\subsection{Including the library}
+
+	To use the \CALL PAPI Observables Driver you must add the following 
+pragma to your code:
+
+\begin{verbatim}
+  #pragma cll uses PAPI
+\end{verbatim}
+
+	If you want you can add other drivers to the drivers list
+in the \verb$uses$ pragma.
+
+\subsection{Observables provided}
+	
+	With this driver you can take data from almost every event that
+PAPI supports. There are wrap around MACROS to make PAPI work within
+\CALL with minimal effort from you for:
+	
+	\begin{description}
+	\item[PAPI\_CLOCK:]
+	     This event is  not really a PAPI event, it uses \verb$PAPI_REAL_USEC$,
+	     which gives microseconds and turns them into seconds.
+	\item[PAPI\_REAL\_USEC:]
+	     This event gives the number of microseconds elapsed from the start
+	     of the experiment until the end.
+  \item[PAPI\_REAL\_CYC:]
+	     This event gives the number of processor cycles elapsed from the start
+	     of the experiment until the end.
+	\end{description}
+
+	In addition to these three events, the \CALL PAPI Observables Driver can
+also handle every event present in the file \verb$papiStdEventDefs.h$ that
+comes with PAPI. \CALL has been designed to automaticaly provide support
+for new events added to that file (see section \ref{subsection:configuring} for details). 
+%Refer to \ref{subsubsec:papistdeventdefs}.
+	There are, at least the following events\footnote{These are only the standardized event definitions}:
+
+\vspace{.2cm}
+%\begin{multicols}{1}
+\input{papiStdEventDefs.tex}
+%\end{multicols}
+
+\subsection{Known Bugs}
+  No known bugs.
+\subsection{Examples}
+
+	As an example, let's say that you want to measure the number of
+L1 Data Cache Misses in an experiment:
+\begin{verbatim}
+#pragma cll mat PAPI_L1_DCM = mat[0]+mat[1]*N 
+  for (i = 1; i < N; i++) a[i] = a[i-1];
+#pragma cll end mat
+\end{verbatim}
+
+	In the example above, \verb$CLOCK$ will not be measured, you could have
+added \verb$CLOCK$ or (\verb$PAPI_CLOCK$) to the list of observables.
+
+\subsection{Configuring CALL to use the PAPI Events of your PAPI distribution}
+\label{subsection:configuring}
+	PAPI adds new events with every realese. We provide a very simple
+script to generate the part of the \CALL PAPI Observables Driver 
+which provides the wrapping functions to handle these events.
+
+	It relies on the aspect of the file that PAPI has been distributing
+with then identifiers for the events: {\tt papiStdEventDefs.h}. If the PAPI
+developers change the layout of this file, our script will not probably
+work.
+	
+	You will not probably need to do what follows, but if you want to
+measure an event that you know that PAPI provides, but \CALL fails to
+do it because of the lack of an appropriate definition for such an
+event within the \CALL distributed PAPI Driver, you will most likely 
+find a quick solution here.
+	
+	Go to the \CALL include directory tree, now change to the directory
+named \verb$measures$. You can see a script called:
+\verb$cll.CREATE_PAPI_H.sh$.
+
+	This script checks if you have a file named \verb$papiStdEventDefs.h$
+in one of the following directories of your system:
+\begin{itemize}
+\item \verb$/usr/include/$
+\item \verb$/usr/local/include/$
+\end{itemize}
+
+	If it exists it will use the definitions in that file and the \CALL
+PAPI Events skeleton file: \verb$cll.PAPI_EVENT.skel.h$ to produce the
+file \verb$cll.PAPI_EVENTS.h$ which is automatically included by the
+\CALL PAPI Observables Driver. The new file will contain all the
+definitions needed by \CALL to support the PAPI Events listed in the
+\verb$papiStdEventDefs.h$.
+
+	If the file \verb$papiStdEventDefs.h$ is not in one of those directories,
+or what you want to measure is a hardware event definition provided by
+yourself\footnote{That means, you provide a code with which PAPI works with, 
+see de PAPI documentation for details about this.} you can still easily
+change the \verb$cll.CREATE_PAPI_H.sh$ shell script to serve your purposes.
+
+	\verb$cll.CREATE_PAPI_H.sh$ requires that you have a bourne shell,
+\emph{sed} and \emph{grep} installed in your system.
+
+

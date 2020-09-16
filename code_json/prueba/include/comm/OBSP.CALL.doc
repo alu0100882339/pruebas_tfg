@@ -1,0 +1,82 @@
+\subsubsection{Description and scope of use}
+
+	You need to use this driver if you want to use \CALL within a code
+written to work under the Oxford BSP library.
+	
+	This driver uses de DRMA (Distributed Remote Memory Access) functions
+of the BSP model.
+
+%	If you are using the Oxford BSP library implementation rather than the
+%Padeborn one, then you can only use this driver, the \emph{PUB\_BSP}
+%driver is not compatible, it is simply that the functions interfaces
+%provided by these two implementations are different, and receive different
+%parameters.
+
+\subsubsection{Location}
+
+	The C header file for this driver must be within the \CALL include
+directory tree in the following file: \verb$comm/cll_OBSP.h$.
+
+	You should \emph{never} include this file directly. Do always let
+\CALL do it. 
+%If you include this file manually, then you will have
+%to change your code if you want to obtain a release version without
+%the \CALL instrumentation.
+
+\subsubsection{Syntax and parameters}
+
+	The syntax to tell \CALL that you want to use this driver is:
+
+	\verb$#pragma cll parallel OBSP$
+
+%	This driver does not use any parameters. 
+
+\subsubsection{Synchronizing}
+
+	The OBSP driver does not receive any parameters at all. And if you use
+the \verb$sync$ modifier without parameters, \CALL will barrier-synchronize 
+the whole set of processors. In the Oxford BSP model, your set of
+processors cannot be splitted and there is no such a visible variable
+holding an abstraction of the current \emph{BSP machine} as in the 
+Paderborn BSP implementation.
+
+	If you provide the \verb$sync$ modifier with a parameter it will be 
+absolutely ignored, and \CALL will barrier synchronize the whole set of
+processors.
+
+\subsubsection{Known Bugs}
+
+	No known bugs.
+
+\subsubsection{Examples}
+
+	This is a very short, unuseful example to show how to use this driver:
+
+\begin{verbatim}
+#include <bsp.h>
+
+#pragma cll parallel OBSP
+
+void main() {
+  int i;
+  bsp_begin(bsp_nprocs());
+
+
+#pragma cll p p[0]*1
+    printf("Hello World from process %d of %d\n", bsp_pid(),bsp_nprocs());
+#pragma cll end p
+
+
+#pragma cll report all
+
+  bsp_end();
+}
+\end{verbatim}
+
+	This program is very simple. You can see that, in order to use
+\CALL for this program you must use the \CALL \verb$parallel$ pragma.
+You could have forced a synchronization at the begining of experiment 
+\emph{p} just adding the modifier \verb$sync$ immediately before
+the name of the experiment(\emph{p}).
+
+

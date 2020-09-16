@@ -1,0 +1,56 @@
+#ifndef __CLL_MPI_H__
+#define __CLL_MPI_H__ /* avoid multiple inclusion */
+
+/* OBSOLETE: #define IS_MAIN_CPU	!cll_myid() */
+#define CLL_SYNC		MPI_Barrier(MPI_COMM_WORLD)
+#define CLL_SYNC_(x) MPI_Barrier((x))
+
+#include "mpi.h"
+/* MPI interface for call */
+
+unsigned * cll_get_NUMTESTS(unsigned experiment_numtests, int numproc) {
+  unsigned * all_nt = malloc(numproc*sizeof(unsigned));
+
+  /* Warning! the type is MPI_UNSIGNED since numtest has being declared as that */
+  MPI_Gather(&experiment_numtests, 1, MPI_UNSIGNED, all_nt, 1, MPI_UNSIGNED, 0, MPI_COMM_WORLD);
+  return all_nt;
+}
+
+#define cll_report(experiment)                     \
+  {                              \
+    int i;                                              \
+    int myid; \
+    unsigned * cll_numtests; \
+    int proc, numproc; \
+ \
+    MPI_Comm_rank(MPI_COMM_WORLD,&myid); \
+    MPI_Comm_size(MPI_COMM_WORLD,&numproc); \
+    cll_numtests = cll_get_NUMTESTS((experiment).numtests, numproc);      \
+ \
+    if (!myid) { \
+      cll_open_file(); \
+			cll_print_header((experiment), "MPI"); \
+			cll_print_exp_header((experiment)); \
+			cll_print_NUMTESTS(cll_numtests,numproc); \
+			cll_print_exp_fields_titles((experiment)); \
+      cll_print_experiment_samples((experiment).numidents, (experiment).instance, (experiment).numtests, myid, numproc); \
+      for(proc = 1; proc < numproc; proc++) {  \
+        MPI_Status cll_status; \
+        /* receive & print data from processor proc */ \
+        MPI_Recv((experiment).instance, cll_numtests[proc]*sizeof((experiment).instance[0]), MPI_BYTE, proc, proc, MPI_COMM_WORLD, &cll_status); \
+        cll_print_experiment_samples((experiment).numidents, (experiment).instance, cll_numtests[proc], proc, numproc); \
+        MPI_Barrier(MPI_COMM_WORLD); /* barrier */ \
+      } \
+			cll_print_end_of_experiment(experiment); \
+    }\
+    else { \
+      for(proc = 1; proc < numproc; proc++) {  \
+        /* send data from processor proc to 0*/ \
+        if (myid == proc) \
+          MPI_Send((experiment).instance, (experiment).numtests*sizeof((experiment).instance[0]), MPI_BYTE, 0, proc, MPI_COMM_WORLD);\
+        MPI_Barrier(MPI_COMM_WORLD); /* barrier */ \
+      } \
+    }\
+}
+
+#endif /* __CLL_MPI_H__ */

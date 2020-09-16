@@ -1,0 +1,8 @@
+Los tiempos de PUSERTIME están en microsegundos aunque la resolución real de la rutina es de centésimas de segundo.
+
+Los tiempos de NUSERTIME, NSYSTEMTIME, NCHILDUSERTIME y NCHILDSYSTEMTIME están en centésimas de segundo ya que es la resolución máxima de la rutina.
+
+La llamada no es de la forma
+#pragma cll experimento complejidad observables PUSERTIME,NUSERTIME,NSYSTEMTIME
+sino de la forma
+#pragma cll experimento PUSERTIME,NUSERTIME,NSYSTEMTIME=complejidad

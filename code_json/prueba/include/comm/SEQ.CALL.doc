@@ -1,0 +1,70 @@
+\subsubsection{Description and scope of use}
+
+	The SEQ (sequential driver) is the \emph{default driver}. 
+
+	The sequential driver is designed to be used by \CALL in non parallel
+programs. It provides the same interface to \CALL as other parallel 
+drivers and \CALL handles this driver exactly in the same manner. 
+That does not mean that this driver is inefficient for the sequential 
+case, it does actually add no bigger overhead at all than an specific
+handling for this special case will add.
+
+	With a lot of care this driver \emph{could} work in a parallel 
+environment in which all the processors could do I/O. Nevertheless this
+kind of use is \emph{strongly discouraged}.
+	
+\subsubsection{Location}
+
+	The C header file for this driver must be within the \CALL include
+directory tree in the following file: \verb$comm/cll_SEQ.h$.
+
+	You should \emph{never} include this file directly. Do always let
+\CALL do it. 
+%If you include this file manually, then you will have
+%to change your code if you want to obtain a release version without
+%the \CALL instrumentation.
+
+\subsubsection{Syntax and parameters}
+
+	This driver does not receive any parameters.
+
+	This driver is the default driver and you do not need to specify its use,
+but if you want you can still write:
+
+\verb$#pragma cll parallel SEQ$
+
+\subsubsection{Synchronizing}
+	
+	The sequential driver also accepts the {\tt sync} construct. It is a main
+objective of \CALL to provide a general syntax to express where and how
+the code should be instrumented. For this reason, you can use the \verb$sync$
+construct when using the SEQ driver, however, it does not produce
+any effect at all.
+
+\subsubsection{Known Bugs}
+
+	No known bugs.
+
+\subsubsection{Examples}
+
+	The use of this driver is very simple: the sequential "hello world!"...
+
+\begin{verbatim}
+int main(void) {
+
+#pragma cll sync helloWexp helloWexp[0]*1
+	printf("Hello World!\n");
+#pragma cll end helloWexp
+
+#pragma cll report all
+
+	return 0;
+}
+\end{verbatim}
+
+	In this very short, but working example, you can see that you do not need
+to use the \CALL \verb$parallel$ pragma to use the \emph{SEQ} driver.
+
+	The \verb$sync$ experiment modifier simply does nothing.
+
+

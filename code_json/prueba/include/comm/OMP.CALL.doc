@@ -1,0 +1,119 @@
+\subsubsection{Description and scope of use}
+
+	This driver is needed for OpenMP programs using \CALL.
+	
+	It provides an implementation that should work with any OpenMP
+conformant distribution. This driver uses the OpenMP runtime 
+library routines. Depending on the platform, it may be
+necessary to include "omp.h".
+
+\subsubsection{Location}
+
+	The C header file for this driver must be within the \CALL include
+directory tree in the files: \verb$comm/cll_OMP.h$. 
+
+	You should \emph{never} include the file \verb$comm/cll_OMP.h$ directly. 
+  Do always let \CALL do it for you. 
+Additionally, the OMP driver uses the file \verb$comm/cll_post_exp_declarations.c$.
+This file contains any driver specific code that has to be executed after 
+after the declaration of the experiment.
+
+\subsubsection{Syntax and parameters}
+
+	The syntax to tell \CALL that you want to use this driver is:
+
+	\verb$#pragma cll parallel OMP$
+
+	This driver does uses the following parameters:
+
+\begin{itemize}
+\item
+\verb|omp_MAX_NUM_THREADS|
+
+This variable contains an upper bound of the number of threads
+which will execute the program.
+\end{itemize}
+
+	\CALL will use {\tt threadprivate} variables to store the measures 
+obtained by each processor. This mean
+that when the \CALL \verb$report$ pragma is executed, the contents of 
+these {\tt threadprivate} variables are communicated to 
+thread 0 and dumped by this thread into the report file.
+If in sequential, \CALL will switch to parallel mode
+activating the whole set of threads.
+
+ The use of dynamic adjustment 
+of the number of threads available for execution inside 
+the different parallel regions may produce eroneous 
+results. As a general advice, keep one thread per processor
+during the complete running of your program.
+
+\subsubsection{Synchronizing}
+
+	Since OpenMP does not give support to processor subgroups, 
+the OpenMP driver does not expect to receive a parameter specifying
+the group of processors. If you use
+the \verb$sync$ modifier without parameters, \CALL will barrier-synchronize 
+all the processors within the current team of threads.
+
+\subsubsection{Known Bugs}
+
+	No known bugs.
+
+\subsubsection{Examples}
+
+	This is a very short example to show how to use this driver:
+
+\begin{verbatim}
+#include <stdio.h>
+#include <sys/time.h>
+/*************************123456789****/
+#define MAX_NUM_INTERVALS 1000000
+
+#pragma cll parallel OMP
+
+#pragma cll script ppi_lomond skel sunfire \
+  "s/CLL_FIRST/1/; s/CLL_LAST/4/; \
+   s/CLL_PREFIX/export OMP_NUM_THREADS=\\$I; /; \
+   s/CLL_PROGRAM/ppi/"
+
+main() {
+  double local, pi=0.0, w;
+  struct timeval start_time, end_time;
+  double exe_time;
+  long N, i;
+
+  gettimeofday(&start_time, 0);
+
+  N = MAX_NUM_INTERVALS;
+#pragma cll for(N = 1000; N < MAX_NUM_INTERVALS; N+=1000) 
+  w = 1.0 / N;
+#pragma omp parallel private(i, local) 
+  {
+#pragma omp single
+    pi = 0.0;
+#pragma cll sync PI PI[0]+PI[1]*N 
+#pragma omp for reduction (+: pi)
+    for (i = 0; i < N; i++) {
+      local = (i + 0.5)*w;
+      pi = pi + 4.0/(1.0 + local*local);
+    }
+#pragma cll end PI
+  } /* parallel */
+#pragma cll end for
+
+  gettimeofday(&end_time, 0);
+  exe_time = end_time.tv_sec - start_time.tv_sec;
+  exe_time = exe_time + (end_time.tv_usec - start_time.tv_usec) / 1e6;
+
+  printf("pi is %1.20f\n", pi*w);
+  printf("It took %f seconds\n", exe_time);
+#pragma cll report all 
+}
+\end{verbatim}
+
+ In this example we synchronize all the processors
+with the \verb$sync$ experiment modifier to make sure that they all
+start the loop at the same time. 
+
+

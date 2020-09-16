@@ -1,0 +1,202 @@
+\subsubsection{Description and scope of use}
+
+	This driver \emph{needs} to be passed a parameter which is the 
+descriptor of the BSP
+submachine that your program is using. As the descriptor
+of the global BSP machine is a variable
+whose name is chosen by the programmer, i.e. there is no default
+name for the global set of pocessors, there is no way 
+for \CALL to know what variable to use to collect the data from the different processors.
+Note that within MPI we do not have
+such a problem as the MPI\_COMM\_WORLD is \emph{always} defined.
+	
+\subsubsection{Description and scope of use}
+	
+	If you want to use \CALL in a program written with PUB (Paderborn
+University BSP\footnote{Bulk Synchronous Parallel Model}) library, then
+you will need to use this file.
+
+	It uses the BSP Model Message Passing interface functions to do the 
+communication of the results.
+
+\subsubsection{Location}
+
+	The C header file for this driver must be within the \CALL include
+directory tree in the following file: \verb$comm/cll_PUB_BSP.h$.
+
+	You should \emph{never} include this file directly. Do always let
+\CALL do it. 
+%If you include this file manually, then you will have
+%to change your code if you want to obtain a release version without
+%the \CALL instrumentation.
+
+\subsubsection{Syntax and parameters}
+
+	The \emph{PUB\_BSP} driver \emph{must} be specified in a program
+that uses the PUB library.
+
+	You \emph{must always} pass a parameter to this driver which is what
+is called in the BSP world, the \emph{BSP machine} that your program is 
+using. 
+	
+	The name of the parameter to specify the \emph{BSP machine} is:
+\emph{BSP\_MACHINE} and the \emph{PUB\_BSP} driver selection will look
+like:
+
+\verb$#pragma cll parallel PUB_BSP BSP_MACHINE = "&bsp"$
+
+	The rightside of the parameter assignment must be a double quoted
+string.
+
+	The \emph{BSP\_MACHINE} for this driver must \emph{always} be 
+a pointer to a \emph{tbsp}\footnote{This is a type provided by the PUB
+Library} variable defined in the scope of any \texttt{report} or
+\texttt{sync}(without arguments) pragma.
+
+	Bear in mind that the \emph{strings} that you give as parameters have 
+global file scope, and that it will be that \emph{string} that will be
+actually used by \CALL in any place that it needs it.
+
+	Please, check the examples to make sure that you really know how \CALL
+will use this parameter. 
+
+\subsubsection{Synchronizing}
+
+	The \emph{PUB\_BSP} driver barrier-synchronizes all the processors in
+the current \emph{BSP\_MACHINE} parameter variable if the modifier
+\verb$sync$ is used without parameters.
+
+	If you pass a parameter to the \verb$sync$ modifier, \CALL will 
+barrier-synchronize all the processors within the \emph{tbsp} structure
+pointed by that parameter.
+
+	The syntax, describing the parameter that \verb$sync$ accepts is:
+
+\begin{alltt}
+#pragma cll sync(\emph{tbsp *}) \emph{experiment declaration}
+\end{alltt}
+
+	Note that whatever string you provide to the \emph{BSP\_MACHINE} parameter
+will be used as it is in the \verb$sync$ pragma \emph{if} you did not pass
+any parameters. That means that your program would not compile if that
+string refers to a variable which is not in the scope of \verb$sync$.
+
+	Please, see the examples if you still have any doubts.
+
+\subsubsection{Known Bugs}
+
+	No known bugs.
+
+\subsubsection{Examples}
+
+	In the following examples we show how the \emph{BSP\_MACHINE} parameter
+is handled.
+
+	To start with, let's se a simple one. Look at the string assigned to 
+\emph{BSP\_MACHINE} and look at the declaration of the variable, note 
+that it is not a pointer, and then look at where \verb$cll_report$ is
+located.
+
+\begin{verbatim}
+#pragma cll parallel PUB_BSP BSP_MACHINE = "&bsp"
+
+int main(int argc, char *argv[]) {
+
+  t_bsp bsp;
+
+  bsplib_saveargs(&argc, &argv);
+  bsplib_init(BSPLIB_STDPARAMS, &bsp);
+
+#pragma  cll report all
+}
+\end{verbatim}
+
+	\verb$cll_report$ will use \verb$&bsp$ because it is the value of
+\emph{BSP\_MACHINE} parameter and the instrumented code produced by
+\CALL will work correctly.
+
+	If you had written the \CALL \verb$report$ pragma outside the main
+then your code will fail, because \CALL introduces C
+statements at the point where such a pragma is found that make reference
+to \verb|"&bsp"|.
+
+	The following code precises this problem.
+  The code will not work because the variable 
+\verb$&bsp$ is outside of the scope where the \CALL \verb$report$ pragma
+is.
+
+\begin{verbatim}
+#pragma cll parallel PUB_BSP BSP_MACHINE = "&bsp"
+
+int main(int argc, char *argv[]) {
+
+  t_bsp bsp;
+
+  bsplib_saveargs(&argc, &argv);
+  bsplib_init(BSPLIB_STDPARAMS, &bsp);
+
+	do_report();
+
+}
+
+void do_report(void) {
+#pragma  cll report all
+}
+\end{verbatim}
+
+	If the variable \verb$bsp$ of type \verb$t_bsp$ had been of global
+scope, then this latter example would have produced a working
+instrumented code when preprocessed by \CALL.
+
+%	This latter example is rather artificial and it is shown here 
+%because it is very short and direct, but you should not take it
+%as a good programming practice within \CALL, although it works.
+%You should not worry about making specific functions to do the 
+%reporting, let \CALL do it.
+
+	And now a more complicated example. In the example that follows we
+use \verb$sync$ without parameters in a way that it will not work.
+
+\begin{verbatim}
+#pragma cll parallel PUB_BSP BSP_MACHINE = "&bsp"
+
+void do_things(t_bsp *bsp) {
+
+#pragma cll sync bspexp bspexp[0]*1
+	/* Lots of bsp things here */
+#pragma cll end bspexp
+
+}
+
+int main(int argc, char *argv[]) {
+
+  t_bsp bsp;
+
+  bsplib_saveargs(&argc, &argv);
+  bsplib_init(BSPLIB_STDPARAMS, &bsp);
+
+	do_things(&bsp);
+
+}
+\end{verbatim}
+
+	This example does not work because \verb$do_things$ is passed a pointer,
+so the \emph{BSP\_MACHINE} parameter string \verb$&bsp$ will be used by
+\verb$sync$ (think of it as a macro expansion, because that is what it is).
+For this reason, \verb$sync$ will wrongly use a \verb$t_bsp **$ type which
+is what \verb$&bsp$ means inside \verb$do_things$ and the \CALL instrumented
+code will either not compile or not work properly.
+
+	But you could have easily solved this issue in two ways:
+\begin{enumerate}
+\item 
+	  passing a correct argument to \verb$sync$, and rewriting the 
+	  \verb$bspexp$ experiment declaration as:
+	  \verb$#pragma cll sync(bsp) bspexp bspexp[0]*1$
+\item 
+	  declaring the \verb$t_bsp$ variable globally, and making sure not to
+	  hide it with function parameters sharing the same name. Then
+	  \verb$&bsp$ would mean the same everywhere in the code where you
+	  could use the \CALL \verb$sync$ modifier or the \verb$report$ pragma.
+\end{enumerate} 
+
