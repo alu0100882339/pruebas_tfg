@@ -4,7 +4,7 @@ import pandas as pd
 import json, os
 
 
-path_to_json = 'data/other_data/'
+path_to_json = '../data/data_1/'
 json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('40.json')]
 
 sequential_sample = []

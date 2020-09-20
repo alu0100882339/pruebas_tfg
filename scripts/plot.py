@@ -4,8 +4,8 @@ import pandas as pd
 import json, os
 
 
-path_to_json_1 = 'data/other_data/'
-path_to_json_2 = 'data/data_2/'
+path_to_json_1 = '../data/data_1/'
+path_to_json_2 = '../data/data_2/'
 
 json_files_1 = [pos_json for pos_json in os.listdir(path_to_json_1) if pos_json.endswith('40.json')]
 json_files_2 = [pos_json for pos_json in os.listdir(path_to_json_2) if pos_json.endswith('40.json')]

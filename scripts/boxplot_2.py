@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd 
 import json, os
 
-path_to_json = 'data/data_1/'
+path_to_json = '../data/data_1_power/'
 json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('40.json')]
 
 mean = []
@@ -67,7 +67,7 @@ for i in number_cpus:
         number.append(dummy)
     fig, ax = plt.subplots()
     plt.xlabel("CPU")
-    plt.ylabel("PAPI_REAL_USEC")
+    plt.ylabel("PAPI_L2_TCM")
     ax.set_title("BOXPLOT")
     ax.boxplot(number)
 plt.show()

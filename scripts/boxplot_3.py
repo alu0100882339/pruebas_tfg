@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd 
 import json, os
 
-path_to_json = 'data/data_2/'
+path_to_json = '../data/data_2/'
 json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('40.json')]
 
 
